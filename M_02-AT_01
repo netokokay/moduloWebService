@@ -1,0 +1,21 @@
+GET: É o método mais comum e é usado para solicitar um recurso a partir de um servidor web. Por exemplo, quando você acessa uma página web em um navegador, o navegador envia uma solicitação GET para o servidor para obter o conteúdo da página.
+
+POST: É usado para enviar informações ao servidor para serem processadas, como quando você preenche um formulário online e envia-o.
+
+PUT: É usado para atualizar um recurso existente no servidor.
+
+DELETE: É usado para excluir um recurso existente no servidor.
+
+HEAD: É semelhante ao método GET, mas apenas retorna os cabeçalhos da resposta, sem o corpo da mensagem. Isso é útil para verificar a última data de modificação de um recurso sem ter que baixar todo o conteúdo.
+
+CONNECT: É usado para estabelecer uma conexão segura com o servidor, geralmente através de um túnel criptografado.
+
+OPTIONS: É usado para obter informações sobre as opções de comunicação disponíveis para um determinado recurso.
+
+TRACE: É usado para testar se um caminho de mensagem está funcionando corretamente.
+
+PATCH: É usado para aplicar modificações parciais a um recurso existente no servidor.
+
+WSDL (Web Service Description Language) é uma linguagem de descrição de serviço web que descreve os serviços web disponíveis e como acessá-los. 
+
+ Ele é usado para fornecer informações sobre os métodos de serviço web, os tipos de dados que são trocados e as regras de negócio que regem o acesso aos serviços.
