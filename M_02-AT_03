@@ -1,0 +1,17 @@
+1. Cliente-servidor: A separação do estado da aplicação (armazenado no servidor) do uso da aplicação (feito pelo cliente) permite que as alterações em 
+um lado não afetem o outro.
+
+2. Stateless: O servidor não deve armazenar o estado do cliente entre as solicitações. Em vez disso, toda informação deve ser fornecida pelo cliente 
+em cada solicitação.
+
+3. Cacheable: Os recursos da API devem ser identificados de forma única e podem ser armazenados em cache para melhorar a performance.
+
+4. Layered system: A API pode ser usada por diferentes camadas da aplicação (por exemplo, a camada de interface do usuário e a 
+camada de acesso a dados), sem que os clientes precisem saber disso.
+
+5. Code on demand (opcional): A API pode fornecer código (como JavaScript) para ser executado pelo cliente, permitindo 
+que a aplicação se torne mais dinâmica.
+
+6. Uniform interface: A API deve ser projetada de forma a expor uma interface uniforme para os clientes, independentemente da implementação 
+interna do servidor. Isso é alcançado através do uso de recursos (que representam entidades), métodos HTTP (como GET, POST, PUT e DELETE) e 
+cabeçalhos HTTP para fornecer contexto adicional.
