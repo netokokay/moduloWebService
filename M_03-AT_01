@@ -1,0 +1,105 @@
+import { Request, Response } from "express";
+import { livroRepository } from "../repositories/livroRepository";
+
+export class LivroController {
+    async create(req: Request, res: Response) {
+
+        try {
+            const { livro, autor, ISBN } = req.body
+
+            if(!livro) return res.status(422).json({message: 'Você não pode criar um livro em branco!'})
+
+            const newLivro = livroRepository.create({ livro, autor, ISBN })
+            await livroRepository.save(newLivro)
+
+            return res.status(201).json(newLivro)
+
+        } catch (error) {
+            return res.status(500).json({ message: 'Ops! Ocorreu algum erro, tente novamente.' })
+        }
+    }
+
+    async list(req: Request, res: Response) {
+
+        try {
+
+            const lista = await livroRepository.find({order: {id: "ASC"}})
+
+
+            return res.status(200).json({ lista })
+        } catch (error) {
+            return res.status(500).json({ message: 'Ops! Ocorreu algum erro, tente novamente.' })
+        }
+
+    }
+
+    async delete(req: Request, res: Response) {
+
+
+        try {
+
+            if(!req.body.id) return res.json({message: 'Ops! Ocorreu algum erro, confira o ID do seu livro!'})
+            const { id } = req.body
+
+            const livro = await livroRepository.findOneBy({id})
+
+            if(!livro) return res.json({message:'Erro inesperado! Confira o ID ddo seu livro e tente novamente!'})
+
+            await livroRepository.delete(livro)
+            
+            return res.json({message: 'Livro deletado com sucesso'})
+
+        } catch (error) {
+            return res.status(500).json({ message: 'Ops! Ocorreu algum erro, tente novamente.' })
+        }
+
+    }
+
+    async update(req: Request, res: Response){
+
+        try {
+            const { id, newLivro, newAutor, newISBN } = req.body
+            
+            const livro = await livroRepository.findOneBy({id})
+
+            if(!livro) return res.json({message:'Erro inesperado! Tente novamente'})
+
+            livroRepository
+            .createQueryBuilder()
+            .update(livro)
+            .set({
+                livro: newLivro,
+                autor: newAutor,
+                ISBN: newISBN
+            })
+            .where("id = :id", {id})
+            .execute()
+
+            return res.json({message: 'Livro atualizado com sucesso!'})
+
+
+        } catch (error) {
+            return res.status(500).json({ message: 'Ops! Ocorreu algum erro, tente novamente.' })
+        }
+
+    }
+}
+
+///////////////////////////////////////////    ROTAS     /////////////////////////////////////////////////////
+
+import { Router } from "express"
+import { LivroController } from "./src/controllers/livroController"
+
+const routes = Router()
+
+routes.post('/criarLivro', new LivroController().create)
+routes.get('/listarLivros', new LivroController().list)
+routes.delete('/deletarLivro', new LivroController().delete)
+
+routes.put('/atualizarLivro', new LivroController().update)
+
+
+
+
+export default routes
+
