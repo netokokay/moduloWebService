@@ -1,0 +1,32 @@
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+
+@WebService
+@SOAPBinding(style = SOAPBinding.Style.RPC)
+public class SoapJava {
+
+  @WebMethod
+  public String sayHello(String name) {
+    return "Hello, " + name + "!";
+  }
+
+  @WebMethod
+  public String sayGoodBye(String name){
+    return "Good bye, " + name + "!";
+  }
+
+  @WebMethod
+  public String sayGoodNight(String name){
+    return "Good night, " + name + "!";
+  }
+
+  @WebMethod
+  public String sayTakeCare(String name){
+    return "Take Care, " + name + "!";
+  }
+
+  public static void main(String[] args){
+    Endpoint.publish("http://localhost:8080/SoapJava", new SoapJava());
+  }
+}
