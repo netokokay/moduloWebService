@@ -1,0 +1,24 @@
+
+const soap = require('soap');
+const http = require('http');
+
+const service = {
+  MyService: {
+    MyPort: {
+      MyFunction: (args) => {
+        return {
+          name: args.name
+        };
+      }
+    }
+  }
+};
+
+const xml = require('fs').readFileSync('myservice.wsdl', 'utf8');
+
+const server = http.createServer(function(request,response) {
+  response.end();
+});
+
+server.listen(8000);
+soap.listen(server, '/wsdl', service, xml);
