@@ -1,0 +1,56 @@
+const products = []
+
+const index = (req, res) => {
+  return res.json(products)
+}
+
+const show = (req, res) => {
+  const { id } = req.params
+  const product = products.find(p => p.id === parseInt(id))
+
+  if (!product) {
+    return res.status(404).json({ message: 'Product not found' })
+  }
+
+  return res.json(product)
+}
+
+const store = (req, res) => {
+  const { name, price } = req.body
+  const newProduct = { id: products.length + 1, name, price }
+  products.push(newProduct)
+  return res.status(201).json(newProduct)
+}
+
+const update = (req, res) => {
+  const { id } = req.params
+  const { name, price } = req.body
+  const productIndex = products.findIndex(p => p.id === parseInt(id))
+
+  if (productIndex < 0) {
+    return res.status(404).json({ message: 'Product not found' })
+  }
+
+  products[productIndex] = { id: products[productIndex].id, name, price }
+  return res.json(products[productIndex])
+}
+
+const destroy = (req, res) => {
+  const { id } = req.params
+  const productIndex = products.findIndex(p => p.id === parseInt(id))
+
+  if (productIndex < 0) {
+    return res.status(404).json({ message: 'Product not found' })
+  }
+
+  products.splice(productIndex, 1)
+  return res.status(204).send()
+}
+
+module.exports = {
+  index,
+  show,
+  store,
+  update,
+  destroy
+}
